@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 
+//Копипаста из https://github.com/MADZEROPIE/Sort_things1
 
 int* input(int* arr, int* len) {
 	int i;
