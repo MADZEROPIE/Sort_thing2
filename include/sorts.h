@@ -14,7 +14,7 @@ void swap(T& a, T& b) {
 template<typename T>
 void quick_sort(T arr[], int right) {//Версия, при которой выбирается случайный элемент
 	if (right > 0) {
-		int rand_id = rand()%right;
+		int rand_id = std::rand()%right;
 		int k = 0;
 		swap(arr[0], arr[rand_id]);
 		for (int i = 1; i < right; ++i) {
