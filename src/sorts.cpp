@@ -1,5 +1,4 @@
-﻿#include "..\include\sorts.h"
-//#include "sorts.h"
+﻿#include "sorts.h"
 //#include <iostream>
 //#include <cstdlib>
 //#include <ctime>
