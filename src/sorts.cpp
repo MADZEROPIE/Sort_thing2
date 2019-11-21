@@ -16,16 +16,16 @@ void count_sort(int a[], int n, int num)
 {
 	int* temp_arr = (int*)malloc(n * sizeof(a[0]));
 	int i;
-	int count[10] = { 0 };
-	for (i = 0; i < n; i++)
-		count[(a[i] / num) % 10]++;
-	for (i = 1; i < 10; i++)
+	int count[16] = { 0 };
+	for (i = 0; i < n; ++i)
+		++count[(a[i] / num) % 16];
+	for (i = 1; i < 16; ++i)
 		count[i] += count[i - 1];
-	for (i = n - 1; i >= 0; i--) {
-		temp_arr[count[(a[i] / num) % 10] - 1] = a[i];
-		count[(a[i] / num) % 10]--;
+	for (i = n - 1; i >= 0; --i) {
+		temp_arr[count[(a[i] / num) % 16] - 1] = a[i];
+		--count[(a[i] / num) % 16];
 	}
-	for (i = 0; i < n; i++)
+	for (i = 0; i < n; ++i)
 		a[i] = temp_arr[i];
 	free(temp_arr);
 }
@@ -33,6 +33,6 @@ void count_sort(int a[], int n, int num)
 void radix_sort(int a[], int n)
 {
 	int m = get_max(a, n);
-	for (int num = 1; m / num > 0; num *= 10)
+	for (int num = 1; m / num > 0; num =num<<4)
 		count_sort(a, n, num);
 }
