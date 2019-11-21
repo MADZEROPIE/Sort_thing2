@@ -4,15 +4,17 @@
 #include <chrono>
 #include <fstream>
 
+#define SIZE1 500000
+#define SIZE2 1000000
+#define SIZE 2000000
 
-#define SIZE 1000000
-#define CASES 30000
+#define CASES 300
 
 //using namespace std;
-std::pair<long long,long long> tests(int* arr, int size=SIZE+SIZE) {
-	srand(time(0));
 
-	for (int i = 0; i < SIZE+SIZE; ++i) arr[i] = std::rand();
+std::pair<long long,long long> tests(int* arr, int size=SIZE+SIZE) {
+
+	for (int i = 0; i < size; ++i) arr[i] = std::rand();
 	auto t1 = std::chrono::high_resolution_clock::now();
 	radix_sort(arr, size>>1);
 	auto t2 = std::chrono::high_resolution_clock::now();
@@ -30,19 +32,28 @@ std::pair<long long,long long> tests(int* arr, int size=SIZE+SIZE) {
 
 int main(int argc, char** argv)
 {
-//	srand(0);
+	srand(time(0));
 	setlocale(LC_ALL, "Russian");
 	std::ofstream fout; //Τΰιλ
 	fout.open("output.csv");
 	int* arr = new int[SIZE + SIZE];
 	if (fout.is_open()) {
-		fout << "sep=,\n";
-		fout << "radix,quick\n";
-		auto dur = tests(arr);
-		fout << dur.first<<','<<dur.second;
+		fout << "sep=,\nradix,,,quick\n";
+		fout << SIZE1 << ',' << SIZE2 << ',' << SIZE <<','<< SIZE1 << ',' << SIZE2 << ',' << SIZE<<'\n';
+		
+		auto dur = tests(arr, SIZE1 << 1);
+		auto dur3 = tests(arr);
+		auto dur2 = tests(arr,SIZE2<<1);
+		
+		fout << dur.first<<',' << dur2.first<< ',' << dur3.first << ',' << dur.second << ',' << dur2.second << ',' << dur3.second;
+
 		for (int i = 1; i < CASES; ++i) {
-			auto dur = tests(arr);
-			fout << ",\n" << dur.first << ',' << dur.second;
+
+			auto dur = tests(arr, SIZE1 << 1);
+			auto dur2 = tests(arr, SIZE2 << 1);
+			auto dur3 = tests(arr);
+
+			fout << ",\n" << dur.first << ',' << dur2.first << ',' << dur3.first << ',' << dur.second << ',' << dur2.second << ',' << dur3.second;
 		}
 	}
 	delete[] arr;

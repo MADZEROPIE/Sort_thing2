@@ -10,5 +10,6 @@ script:
   - make -j
   - cd ./bin/
   - ./test_sorts
+  - ./sample_sorts
 notifications:
   email: false
