@@ -11,5 +11,8 @@ script:
   - cd ./bin/
   - ./test_sorts
   - ./sample_sorts
+  - git add ./output.csv
+  - git commit -m "look"
+  - git push origin HEAD
 notifications:
   email: false

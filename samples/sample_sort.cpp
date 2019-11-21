@@ -5,10 +5,9 @@
 #include <fstream>
 
 #define SIZE1 500000
-#define SIZE2 1000000
-#define SIZE 2000000
-
-#define CASES 300
+#define SIZE 8000000
+#define STEP 100000
+#define CASES 10
 
 //using namespace std;
 
@@ -37,25 +36,28 @@ int main(int argc, char** argv)
 	std::ofstream fout; //Τΰιλ
 	fout.open("output.csv");
 	int* arr = new int[SIZE + SIZE];
+
 	if (fout.is_open()) {
-		fout << "sep=,\nradix,,,quick\n";
-		fout << SIZE1 << ',' << SIZE2 << ',' << SIZE <<','<< SIZE1 << ',' << SIZE2 << ',' << SIZE<<'\n';
-		
-		auto dur = tests(arr, SIZE1 << 1);
-		auto dur3 = tests(arr);
-		auto dur2 = tests(arr,SIZE2<<1);
-		
-		fout << dur.first<<',' << dur2.first<< ',' << dur3.first << ',' << dur.second << ',' << dur2.second << ',' << dur3.second;
-
-		for (int i = 1; i < CASES; ++i) {
-
-			auto dur = tests(arr, SIZE1 << 1);
-			auto dur2 = tests(arr, SIZE2 << 1);
-			auto dur3 = tests(arr);
-
-			fout << ",\n" << dur.first << ',' << dur2.first << ',' << dur3.first << ',' << dur.second << ',' << dur2.second << ',' << dur3.second;
+		fout << "sep=,\nN,radix,quick\n";
+		int size = SIZE1;
+		long long sum1 = 0, sum2 = 0;
+		for (int i = 0; i < CASES; ++i) {
+			auto dur = tests(arr, size << 1);
+			sum1 += dur.first;
+			sum2 += dur.second;
+		}
+		fout << size << ',' << sum1 / CASES << ',' << sum2 / CASES;
+		for (size = SIZE1+STEP; size<SIZE; size+=STEP) {
+			long long sum1 = 0, sum2 = 0;
+			for (int i = 0; i < CASES; ++i) {
+				auto dur = tests(arr, size << 1);
+				sum1 += dur.first;
+				sum2 += dur.second;
+			}
+			fout << '\n'<<size<<','<<sum1 / CASES << ',' << sum2 / CASES;
 		}
 	}
+
 	delete[] arr;
 	fout.close();
 	return 0;
