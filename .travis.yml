@@ -10,6 +10,7 @@ script:
   - make -j
   - cd ./bin/
   - ./test_sorts
+  - ./sample_sort
 after_success:
   - ./ss.sh
 notifications:
