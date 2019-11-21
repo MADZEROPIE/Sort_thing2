@@ -12,7 +12,7 @@ int get_max(int a[], int n)
 	return m;
 }
 
-void count_sort(int a[], int n, int num)
+void count_sort(int a[], int n, unsigned long long int num)
 {
 	int* temp_arr = (int*)malloc(n * sizeof(a[0]));
 	int count[16] = { 0 };
@@ -32,6 +32,6 @@ void count_sort(int a[], int n, int num)
 void radix_sort(int a[], int n)
 {
 	int m = get_max(a, n);
-	for (int num = 1; m / num > 0; num = num<<4)
+	for (unsigned long long int num = 1; m / num > 0; num = num<<4)
 		count_sort(a, n, num);
 }
