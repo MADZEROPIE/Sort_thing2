@@ -5,9 +5,9 @@
 #include <fstream>
 
 #define SIZE1 500000
-#define SIZE 8000000
+#define SIZE 3000000
 #define STEP 100000
-#define CASES 10
+#define CASES 7
 
 //using namespace std;
 
