@@ -11,6 +11,6 @@ script:
   - cd ./bin/
   - ./test_sorts
 after_success:
-  - .travis/ss.sh
+  - ss.sh
 notifications:
   email: false
