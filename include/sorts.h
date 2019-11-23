@@ -1,20 +1,50 @@
 #pragma once
+//#include <iostream>
+#include <cstdlib>
+#include <ctime>
 
-int bin_search(int arr[], int k);
-int lin_search(int arr[], int k);
-void shift(int arr[], int s, int k);
-void merge_sort(int arr[], int right);
-void merge(int arr[], int r);
-void copy_arr(int c_arr[], int t_arr[], int n);
-void selection_sort(int arr[], int len);
-void quick_sort(int arr[], int right);
-void bin_insertion_sort(int arr[], int len);
-void lin_insertion_sort(int arr[], int len);
-void shaker_sort(int arr[], int len);
-void bubble_sort(int arr[], int n);
-void print_arr(int arr[], int len);
-void swap(int* a, int* b);
-int choice(char menu[][33], int n);
-int* input(int* arr, int* len);
-void create_r_arr(int arr[], int n);
-void it_merge_sort(int* arr, int n);
+template<typename T>
+void swap(T& a, T& b) {
+	T tmp = a;
+	a = b;
+	b = tmp;
+}
+
+
+template<typename T>
+void quick_sort(T arr[], int right) {//Версия, при которой выбирается случайный элемент
+	if (right > 0) {
+		int rand_id = std::rand()%right;
+		int k = 0;
+		swap(arr[0], arr[rand_id]);
+		for (int i = 1; i < right; ++i) {
+			if (arr[i] < arr[0]) {
+				swap(arr[i], arr[++k]);
+			}
+		}
+		swap(arr[0], arr[k]);
+		quick_sort(arr, k);
+		quick_sort(arr + k + 1, right-k-1);
+	}
+}
+/*
+void quick_sort2(int arr[], int right) {//Версия, при которой выбирается самый левый элемент (копипаста из https://github.com/MADZEROPIE/Sort_things1)
+	if (right > 0) {
+		int k = 0;
+		for (int i = 1; i < right; i++)
+			if (arr[i] < arr[0]) {
+				k++;
+				swap(arr[i], arr[k]);
+			}
+		swap(arr[0], arr[k]);
+		quick_sort(arr, k);
+		quick_sort(arr + k + 1, right - k - 1);
+	}
+}
+*/
+
+int get_max(int a[], int n);
+
+void count_sort(int a[], int n, int num);
+
+void radix_sort(int a[], int n);
